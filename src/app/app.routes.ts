@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { CoursesComponent } from './courses/courses.component';
+import { CourseComponent } from './course/course.component';
 import { AuthComponent } from './auth/auth.component';
 
 export const ROUTES: Routes = [
@@ -19,11 +20,15 @@ export const ROUTES: Routes = [
         component: CoursesComponent
     },
     {
+        path: 'courses/:id',
+        component: CourseComponent
+    },
+    {
         path: 'auth',
         component: AuthComponent
     },
     {
-        path: 'auth/:id',
+        path: 'auth/:action',
         component: AuthComponent
     }
 ];
