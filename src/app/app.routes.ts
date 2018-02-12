@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
 
+import { NoContentComponent } from './no-content/no-content.component';
 import { CoursesComponent } from './courses/courses.component';
 import { CourseComponent } from './course/course.component';
-import { AuthComponent } from './auth/auth.component';
+import { LoginComponent } from './login/login.component';
 
 export const ROUTES: Routes = [
     {
@@ -12,8 +13,7 @@ export const ROUTES: Routes = [
     },
     {
         path: 'login',
-        pathMatch: 'full',
-        redirectTo: '/auth/login'
+        component: LoginComponent
     },
     {
         path: 'courses',
@@ -24,11 +24,7 @@ export const ROUTES: Routes = [
         component: CourseComponent
     },
     {
-        path: 'auth',
-        component: AuthComponent
-    },
-    {
-        path: 'auth/:action',
-        component: AuthComponent
+        path: '**',
+        component: NoContentComponent
     }
 ];
