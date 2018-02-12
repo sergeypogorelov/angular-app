@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { AuthService } from './shared/services/auth/auth.service';
 
 import { AppComponent } from './app.component';
@@ -23,6 +25,7 @@ import { ROUTES } from './app.routes';
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [AuthService],

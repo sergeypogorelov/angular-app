@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-const LOGIN_KEY = 'auth';
+import { User } from '../../entities/user';
+
+const LOCAL_STORAGE_KEY = 'auth';
+const CORRECT_USER_LOGIN = 'q';
+const CORRECT_USER_PASSWORD = 'q';
 
 @Injectable()
 export class AuthService {
@@ -11,22 +16,34 @@ export class AuthService {
   }
 
   checkCurrentUserIsAuthenticated(): boolean {
-    return !!localStorage.getItem(LOGIN_KEY);
+    return !!localStorage.getItem(LOCAL_STORAGE_KEY);
   }
 
-  getCurrentUserLogin(): string {
-    return localStorage.getItem(LOGIN_KEY);
+  getCurrentUser(): User {
+    let jsonStr = localStorage.getItem(LOCAL_STORAGE_KEY).trim();
+
+    if (!jsonStr)
+      return null;
+
+    return User.createFromJSON(jsonStr);
   }
 
-  login(userLogin: string): boolean {
-    let login = userLogin.trim();
+  login(userLogin: string, userPassword: string): Observable<User> {
+    return new Observable<User>(observer => {
+      let login = userLogin.trim();
+      let password = userPassword.trim();
 
-    if (login) {
-      localStorage.setItem(LOGIN_KEY, login);
-      return true;
-    }
+      if (login === CORRECT_USER_LOGIN && password === CORRECT_USER_PASSWORD) {
+        let user = new User(login);
+        localStorage.setItem(LOCAL_STORAGE_KEY, User.serializeToJSON(user));
 
-    return false;
+        observer.next(user);
+      } else {
+        observer.error();
+      }
+
+      observer.complete();
+    });
   }
 
 }
