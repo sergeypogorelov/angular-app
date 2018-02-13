@@ -1,5 +1,5 @@
 <div class="page page-login">
-  <p class="alert alert-warning">Login or password is incorrect.</p>
+  <p class="alert alert-warning" *ngIf="authenticationFailed">Login or password is incorrect.</p>
   <form class="form form-horizontal" [formGroup]="form" (submit)="submitForm(form)">
     <div class="form-group" [ngClass]="{ 'has-error' : formLogin.dirty && formLogin.invalid }">
       <label class="col-sm-2 control-label" for="loginInput">Login</label>
