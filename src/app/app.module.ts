@@ -1,9 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { moviesReducer } from './shared/reducers/movies-reducer';
 
 import { AuthService } from './shared/services/auth/auth.service';
 import { MoviesService } from './shared/services/movies/movies.service';
@@ -29,6 +32,7 @@ import { ROUTES } from './app.routes';
     BrowserModule,
     HttpModule,
     ReactiveFormsModule,
+    StoreModule.forRoot({movies: moviesReducer}),
     RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [AuthService, MoviesService],

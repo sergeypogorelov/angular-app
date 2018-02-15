@@ -1,16 +1,20 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, Request, RequestMethod, RequestOptions, URLSearchParams } from '@angular/http';
-import { Observable } from 'rxjs';
+import 'rxjs/add/operator/map';
 import escapeStringRegexp from 'escape-string-regexp';
 
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Injectable } from '@angular/core';
+import { Http, Response, Request, RequestMethod, RequestOptions, URLSearchParams } from '@angular/http';
+
 import { Movie } from '../../entities/movie';
+import { LOAD_MOVIES_PENDING, LOAD_MOVIES_FULFILLED, LOAD_MOVIES_REJECTED } from '../../reducers/movies-reducer';
 
 const API_URL = 'http://localhost:3000/movies';
 
 @Injectable()
 export class MoviesService {
 
-  constructor(private _http: Http) { }
+  constructor(private _http: Http, private _store: Store<any>) { }
 
   loadMovieById(id: number): Observable<Movie> {
     if (id < 1)
