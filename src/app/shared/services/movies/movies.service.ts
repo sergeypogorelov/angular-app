@@ -7,7 +7,6 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Request, RequestMethod, RequestOptions, URLSearchParams } from '@angular/http';
 
 import { Movie } from '../../entities/movie';
-import { LOAD_MOVIES_PENDING, LOAD_MOVIES_FULFILLED, LOAD_MOVIES_REJECTED } from '../../reducers/movies-reducer';
 
 const API_URL = 'http://localhost:3000/movies';
 

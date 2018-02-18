@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 import { StoreHelper } from '../shared/helpers/store-helper';
 
 import { LOAD_MOVIES } from '../shared/reducers/movies-reducer';
+
+import { AppState } from '../shared/interfaces/app-state';
+import { MoviesState } from '../shared/interfaces/movies-state';
 import { MoviesService } from '../shared/services/movies/movies.service';
 
 @Component({
@@ -11,20 +15,30 @@ import { MoviesService } from '../shared/services/movies/movies.service';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css']
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent implements OnInit, OnDestroy {
 
-  moviesStore = null;
+  moviesState: MoviesState = null;
 
-  constructor(private _store: Store<any>, private _moviesService: MoviesService) { }
+  constructor(private _store: Store<AppState>, private _moviesService: MoviesService) { }
 
   ngOnInit() {
-    this._store
-      .select<any>('movies')
-      .subscribe(moviesStore => {
-        this.moviesStore = moviesStore;
-      });
+    this._subscriptions.push(
+      this._store
+        .select<MoviesState>(state => state.moviesState)
+        .subscribe(moviesState => {
+          this.moviesState = moviesState;
+        })
+    );
 
-    StoreHelper.dispatch(LOAD_MOVIES, this._moviesService.loadMovies(), this._store);
+    this._subscriptions.push(
+      StoreHelper.dispatch(this._store, this._moviesService.loadMovies(), LOAD_MOVIES)
+    );
   }
+
+  ngOnDestroy() {
+    this._subscriptions.forEach(i => i.unsubscribe());
+  }
+
+  private _subscriptions: Subscription[] = [];
 
 }

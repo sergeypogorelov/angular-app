@@ -1,27 +1,29 @@
 import { Action, ActionReducer } from '@ngrx/store';
 
-const INITIAL_STORE = {
+import { MoviesState } from '../interfaces/movies-state';
+import { DefaultAction } from '../interfaces/default-action';
+
+import { _PENDING, _FULFILLED, _REJECTED } from '../helpers/store-helper';
+
+const INITIAL_STATE: MoviesState = {
     movies: [],
     moviesAreLoading: false,
     moviesAreLoaded: false,
     moviesAreNotLoaded: false
 };
 
-export const LOAD_MOVIES = 'load_movies';
-export const LOAD_MOVIES_PENDING = 'load_movies_pending';
-export const LOAD_MOVIES_FULFILLED = 'load_movies_fulfilled';
-export const LOAD_MOVIES_REJECTED = 'load_movies_rejected';
+export const LOAD_MOVIES = 'LOAD_MOVIES';
 
-export const moviesReducer: ActionReducer<any> = (store: any = INITIAL_STORE, action: any) => {
+export const moviesReducer: ActionReducer<MoviesState> = (store: MoviesState = INITIAL_STATE, action: DefaultAction) => {
     switch(action.type) {
-        case LOAD_MOVIES_PENDING:
+        case LOAD_MOVIES + _PENDING:
             return {
                 ...store,
                 moviesAreLoading: true,
                 moviesAreLoaded: false,
                 moviesAreNotLoaded: false
             };
-        case LOAD_MOVIES_FULFILLED:
+        case LOAD_MOVIES + _FULFILLED:
             return {
                 ...store,
                 movies: action.payload,
@@ -29,7 +31,7 @@ export const moviesReducer: ActionReducer<any> = (store: any = INITIAL_STORE, ac
                 moviesAreLoaded: true,
                 moviesAreNotLoaded: false
             };
-        case LOAD_MOVIES_REJECTED:
+        case LOAD_MOVIES + _REJECTED:
             return {
                 ...store,
                 moviesAreLoading: false,

@@ -32,7 +32,7 @@ import { ROUTES } from './app.routes';
     BrowserModule,
     HttpModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({movies: moviesReducer}),
+    StoreModule.forRoot({ moviesState: moviesReducer }),
     RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [AuthService, MoviesService],
