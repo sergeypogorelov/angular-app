@@ -1,0 +1,22 @@
+.page.page-courses {
+    .search-form {
+        &-control-wrapper {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        &-add-button-wrapper {
+            padding-right: 0;
+        }
+    }
+    .course {
+        &-title {
+            margin-top: 0;
+        }
+        &-date {
+            padding-top: 0;
+            text-align: right;
+        }
+        padding: 5px;
+        border: 1px solid #ccc;
+    }
+}

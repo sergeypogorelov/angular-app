@@ -1,6 +1,36 @@
-<p>
-  courses works!
-</p>
-<ul>
-  <li *ngFor="let movie of moviesState.movies">{{ movie.title }}</li>
-</ul>
+<div class="container page page-courses">
+  <div class="row search-form">
+    <div class="col-sm-10">
+      <div class="form-horizontal">
+        <div class="form-group">
+          <div class="col-sm-8 search-form-control-wrapper">
+            <input class="form-control" placeholder="course name">
+          </div>
+          <div class="col-sm-4">
+            <button class="btn btn-default">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2 search-form-add-button-wrapper">
+      <button class="btn btn-primary btn-block" type="button">Add course</button>
+    </div>
+  </div>
+  <div class="row course">
+    <div class="col-sm-10">
+      <div class="row">
+        <div class="col-sm-8">
+            <h3 class="h3 course-title">Course 1 <small>1 hour 28 minutes</small></h3>
+        </div>
+        <div class="col-sm-4 course-date">
+          <p class="h4">05/12/2018</p>
+        </div>
+      </div>
+      <p>Description</p>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-default btn-block">Edit</button>
+      <button class="btn btn-warning btn-block">Remove</button>
+    </div>
+  </div>
+</div>
