@@ -24,7 +24,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._subscriptions.push(
       this._store
-        .select<MoviesState>(state => state.moviesState)
+        .select(state => state.moviesState)
         .subscribe(moviesState => {
           this.moviesState = moviesState;
         })

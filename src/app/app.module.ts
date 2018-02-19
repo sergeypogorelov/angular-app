@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { AppState } from './shared/interfaces/app-state';
 import { moviesReducer } from './shared/reducers/movies-reducer';
 
 import { AuthService } from './shared/services/auth/auth.service';
@@ -32,7 +33,7 @@ import { ROUTES } from './app.routes';
     BrowserModule,
     HttpModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({ moviesState: moviesReducer }),
+    StoreModule.forRoot<AppState>({ moviesState: moviesReducer }),
     RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [AuthService, MoviesService],

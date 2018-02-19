@@ -16,17 +16,26 @@
       <button class="btn btn-primary btn-block" type="button">Add course</button>
     </div>
   </div>
-  <div class="row course">
+  <div class="alert alert-info" *ngIf="moviesState.moviesAreLoading">
+    <p>Courses are being loaded...</p>
+  </div>
+  <div class="alert alert-warning" *ngIf="moviesState.moviesAreLoaded && moviesState.movies.length === 0">
+    <p>Courses are not found.</p>
+  </div>
+  <div class="alert alert-danger" *ngIf="moviesState.moviesAreNotLoaded">
+    <p>Courses are not available at this moment. Please, try again later.</p>
+  </div>
+  <div class="row course" *ngFor="let movie of moviesState.movies">
     <div class="col-sm-10">
       <div class="row">
         <div class="col-sm-8">
-            <h3 class="h3 course-title">Course 1 <small>1 hour 28 minutes</small></h3>
+            <h3 class="h3 course-title">{{ movie.title }} <small>1 hour 28 minutes</small></h3>
         </div>
         <div class="col-sm-4 course-date">
-          <p class="h4">05/12/2018</p>
+          <p class="h4">{{ movie.create_date | date:'M/d/yy' }}</p>
         </div>
       </div>
-      <p>Description</p>
+      <p>{{ movie.description }}</p>
     </div>
     <div class="col-sm-2">
       <button class="btn btn-default btn-block">Edit</button>
