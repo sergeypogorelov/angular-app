@@ -19,6 +19,7 @@ import { CourseComponent } from './course/course.component';
 import { LoginComponent } from './login/login.component';
 
 import { ROUTES } from './app.routes';
+import { DurationPipe } from './shared/pipes/duration.pipe';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ROUTES } from './app.routes';
     NoContentComponent,
     CoursesComponent,
     CourseComponent,
-    LoginComponent
+    LoginComponent,
+    DurationPipe
   ],
   imports: [
     BrowserModule,

@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="col-sm-2 search-form-add-button-wrapper">
-      <button class="btn btn-primary btn-block" type="button">Add course</button>
+      <a class="btn btn-primary btn-block" [routerLink]="['/courses', 'new']">Add course</a>
     </div>
   </div>
   <div class="alert alert-info" *ngIf="moviesState.moviesAreLoading">
@@ -29,17 +29,17 @@
     <div class="col-sm-10">
       <div class="row">
         <div class="col-sm-8">
-            <h3 class="h3 course-title">{{ movie.title }} <small>1 hour 28 minutes</small></h3>
+            <h3 class="h3 course-title">{{ movie.title }} <small>{{ movie.duration | duration }}</small></h3>
         </div>
         <div class="col-sm-4 course-date">
-          <p class="h4">{{ movie.create_date | date:'M/d/yy' }}</p>
+          <p class="h4">{{ movie.create_date | date: 'M/d/yy' }}</p>
         </div>
       </div>
       <p>{{ movie.description }}</p>
     </div>
     <div class="col-sm-2">
-      <button class="btn btn-default btn-block">Edit</button>
-      <button class="btn btn-warning btn-block">Remove</button>
+      <a class="btn btn-default btn-block" [routerLink]="['/courses', movie.id]">Edit</a>
+      <a class="btn btn-warning btn-block">Remove</a>
     </div>
   </div>
 </div>
