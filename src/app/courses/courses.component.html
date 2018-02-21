@@ -39,7 +39,16 @@
     </div>
     <div class="col-sm-2">
       <a class="btn btn-default btn-block" [routerLink]="['/courses', movie.id]">Edit</a>
-      <a class="btn btn-warning btn-block">Remove</a>
+      <button class="btn btn-warning btn-block" type="button" (click)="removeCourse(movie.id)">Remove</button>
     </div>
+  </div>
+  <div class="modal-remove" *ngIf="showRemoveModal">
+    <app-modal header="Are you sure?" (onClose)="cancelRemoval()">
+      <div class="alert alert-warning">
+        <p>Are you sure you want to remove this course permanently?</p>
+      </div>
+      <button class="btn btn-warning" (click)="confirmRemoval()">Yes</button>
+      <button class="btn btn-default" (click)="cancelRemoval()">No</button>
+    </app-modal>
   </div>
 </div>

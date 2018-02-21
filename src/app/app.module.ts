@@ -13,6 +13,7 @@ import { AuthService } from './shared/services/auth/auth.service';
 import { MoviesService } from './shared/services/movies/movies.service';
 
 import { AppComponent } from './app.component';
+import { ModalComponent } from './shared/components/modal/modal.component';
 import { NoContentComponent } from './no-content/no-content.component';
 import { CoursesComponent } from './courses/courses.component';
 import { CourseComponent } from './course/course.component';
@@ -29,7 +30,8 @@ import { DurationPipe } from './shared/pipes/duration.pipe';
     CoursesComponent,
     CourseComponent,
     LoginComponent,
-    DurationPipe
+    DurationPipe,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

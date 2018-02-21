@@ -19,6 +19,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   moviesState: MoviesState = null;
 
+  showRemoveModal: boolean = false;
+
   constructor(private _store: Store<AppState>, private _moviesService: MoviesService) { }
 
   ngOnInit() {
@@ -39,6 +41,28 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this._subscriptions.forEach(i => i.unsubscribe());
   }
 
+  removeCourse(id) {
+    if (typeof id === 'number' && !isNaN(id)) {
+      this._movieToRemoveId = id;
+      this.showRemoveModal = true;
+    }
+  }
+
+  confirmRemoval() {
+    console.log('remove', this._movieToRemoveId);
+
+    this._movieToRemoveId = null;
+    this.showRemoveModal = false;
+  }
+
+  cancelRemoval() {
+    console.log('cancel removal', this._movieToRemoveId);
+
+    this._movieToRemoveId = null;
+    this.showRemoveModal = false;
+  }
+
   private _subscriptions: Subscription[] = [];
+  private _movieToRemoveId: number = null;
 
 }
