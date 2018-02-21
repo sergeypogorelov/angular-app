@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { StoreHelper } from '../shared/helpers/store-helper';
 
-import { LOAD_MOVIES } from '../shared/reducers/movies-reducer';
+import { LOAD_MOVIES, REMOVE_MOVIE, SHOW_REMOVAL_MODAL, HIDE_REMOVAL_MODAL } from '../shared/reducers/movies-reducer';
 
 import { AppState } from '../shared/interfaces/app-state';
 import { MoviesState } from '../shared/interfaces/movies-state';
@@ -18,8 +18,6 @@ import { MoviesService } from '../shared/services/movies/movies.service';
 export class CoursesComponent implements OnInit, OnDestroy {
 
   moviesState: MoviesState = null;
-
-  showRemoveModal: boolean = false;
 
   constructor(private _store: Store<AppState>, private _moviesService: MoviesService) { }
 
@@ -44,22 +42,20 @@ export class CoursesComponent implements OnInit, OnDestroy {
   removeCourse(id) {
     if (typeof id === 'number' && !isNaN(id)) {
       this._movieToRemoveId = id;
-      this.showRemoveModal = true;
+      this._store.dispatch({ type: SHOW_REMOVAL_MODAL });
     }
   }
 
   confirmRemoval() {
-    console.log('remove', this._movieToRemoveId);
-
-    this._movieToRemoveId = null;
-    this.showRemoveModal = false;
+    this._subscriptions.push(
+      StoreHelper.dispatch(this._store, this._moviesService.removeById(this._movieToRemoveId), LOAD_MOVIES)
+    );
+    this.cancelRemoval();
   }
 
   cancelRemoval() {
-    console.log('cancel removal', this._movieToRemoveId);
-
     this._movieToRemoveId = null;
-    this.showRemoveModal = false;
+    this._store.dispatch({ type: HIDE_REMOVAL_MODAL });
   }
 
   private _subscriptions: Subscription[] = [];

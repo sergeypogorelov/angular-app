@@ -5,4 +5,5 @@ export interface MoviesState {
     moviesAreLoading: boolean;
     moviesAreLoaded: boolean;
     moviesAreNotLoaded: boolean;
+    showRemovalModal: boolean;
 }

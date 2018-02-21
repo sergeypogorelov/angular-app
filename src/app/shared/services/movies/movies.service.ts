@@ -1,4 +1,5 @@
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 import escapeStringRegexp from 'escape-string-regexp';
 
 import { Observable } from 'rxjs';
@@ -51,6 +52,15 @@ export class MoviesService {
       .request(request)
       .map((response: Response) => response.json())
       .map(movies => movies.map(movie => new Movie(movie)));
+  }
+
+  removeById(id: number, title?: string): Observable<Movie[]> {
+    if (id < 1)
+      throw new Error('Specified ID is not valid.');
+
+    return this._http
+      .delete(`${API_URL}/${id}`)
+      .mergeMap(() => this.loadMovies(title));
   }
 
 }
