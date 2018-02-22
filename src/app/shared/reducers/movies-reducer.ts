@@ -47,30 +47,30 @@ export const moviesReducer: ActionReducer<MoviesState> = (store: MoviesState = I
             };
 
 
-        // case REMOVE_MOVIE + _PENDING:
-        //     return {
-        //         ...store,
-        //         moviesAreLoading: true,
-        //         moviesAreLoaded: false,
-        //         moviesAreNotLoaded: false
-        //     };
+        case REMOVE_MOVIE + _PENDING:
+            return {
+                ...store,
+                moviesAreLoading: true,
+                moviesAreLoaded: false,
+                moviesAreNotLoaded: false
+            };
 
-        // case REMOVE_MOVIE + _FULFILLED:
-        //     return {
-        //         ...store,
-        //         movies: action.payload,
-        //         moviesAreLoading: false,
-        //         moviesAreLoaded: true,
-        //         moviesAreNotLoaded: false
-        //     };
+        case REMOVE_MOVIE + _FULFILLED:
+            return {
+                ...store,
+                movies: action.payload,
+                moviesAreLoading: false,
+                moviesAreLoaded: true,
+                moviesAreNotLoaded: false
+            };
 
-        // case REMOVE_MOVIE + _REJECTED:
-        //     return {
-        //         ...store,
-        //         moviesAreLoading: false,
-        //         moviesAreLoaded: false,
-        //         moviesAreNotLoaded: true
-        //     };
+        case REMOVE_MOVIE + _REJECTED:
+            return {
+                ...store,
+                moviesAreLoading: false,
+                moviesAreLoaded: false,
+                moviesAreNotLoaded: true
+            };
         
         case SHOW_REMOVAL_MODAL:
             return {

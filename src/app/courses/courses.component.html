@@ -1,16 +1,16 @@
 <div class="container page page-courses">
   <div class="row search-form">
     <div class="col-sm-10">
-      <div class="form-horizontal">
+      <form class="form-horizontal" [formGroup]="searchForm" (submit)="submitSearchForm(searchForm)">
         <div class="form-group">
           <div class="col-sm-8 search-form-control-wrapper">
-            <input class="form-control" placeholder="course name">
+            <input class="form-control" placeholder="course name" formControlName="title">
           </div>
           <div class="col-sm-4">
             <button class="btn btn-default">Search</button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
     <div class="col-sm-2 search-form-add-button-wrapper">
       <a class="btn btn-primary btn-block" [routerLink]="['/courses', 'new']">Add course</a>

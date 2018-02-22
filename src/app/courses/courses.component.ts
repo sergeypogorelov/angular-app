@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
+
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { StoreHelper } from '../shared/helpers/store-helper';
 
@@ -17,9 +20,15 @@ import { MoviesService } from '../shared/services/movies/movies.service';
 })
 export class CoursesComponent implements OnInit, OnDestroy {
 
+  searchForm: FormGroup = null;
   moviesState: MoviesState = null;
 
-  constructor(private _store: Store<AppState>, private _moviesService: MoviesService) { }
+  constructor(
+    private _fb: FormBuilder,
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _store: Store<AppState>,
+    private _moviesService: MoviesService) { }
 
   ngOnInit() {
     this._subscriptions.push(
@@ -31,12 +40,20 @@ export class CoursesComponent implements OnInit, OnDestroy {
     );
 
     this._subscriptions.push(
-      StoreHelper.dispatch(this._store, this._moviesService.loadMovies(), LOAD_MOVIES)
+      this._route.queryParams.subscribe(queryParams => {
+        this.initSearchForm(queryParams);
+        this.loadMovies();
+      })
     );
   }
 
   ngOnDestroy() {
     this._subscriptions.forEach(i => i.unsubscribe());
+  }
+
+  submitSearchForm() {
+    let title = this.searchForm.controls['title'].value;
+    this._router.navigate(['/courses'], { queryParams: { title } });
   }
 
   removeCourse(id) {
@@ -48,7 +65,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   confirmRemoval() {
     this._subscriptions.push(
-      StoreHelper.dispatch(this._store, this._moviesService.removeById(this._movieToRemoveId), LOAD_MOVIES)
+      StoreHelper.dispatch(this._store, this._moviesService.removeById(this._movieToRemoveId), REMOVE_MOVIE)
     );
     this.cancelRemoval();
   }
@@ -60,5 +77,20 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   private _subscriptions: Subscription[] = [];
   private _movieToRemoveId: number = null;
+
+  private initSearchForm(queryParams) {
+    if (queryParams) {
+      this.searchForm = this._fb.group({
+        title: [queryParams['title']]
+      });
+    }
+  }
+
+  private loadMovies() {
+    let title = this.searchForm.controls['title'].value;
+    this._subscriptions.push(
+      StoreHelper.dispatch(this._store, this._moviesService.loadMovies(title), LOAD_MOVIES)
+    );
+  }
 
 }

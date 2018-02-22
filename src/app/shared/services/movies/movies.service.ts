@@ -42,7 +42,7 @@ export class MoviesService {
     
     let searchParams = new URLSearchParams();
     if (title) {
-      searchParams.set('title_like', escapeStringRegexp(title));
+      searchParams.set('title_like', title);
     }
     searchParams.set('_embed', 'authors');
     requestOptions.params = searchParams;
