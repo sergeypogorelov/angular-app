@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
-import escapeStringRegexp from 'escape-string-regexp';
+import * as escapeStringRegexp from 'escape-string-regexp';
 
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -42,7 +42,7 @@ export class MoviesService {
     
     let searchParams = new URLSearchParams();
     if (title) {
-      searchParams.set('title_like', title);
+      searchParams.set('title_like', escapeStringRegexp(title));
     }
     searchParams.set('_embed', 'authors');
     requestOptions.params = searchParams;
