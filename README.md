@@ -2,6 +2,18 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.7.
 
+To get this application up and running, execute commands provided below.
+
+> npm i
+
+> npm run start-api
+
+Then in a new window, execute the following command.
+
+> npm run start-app
+
+The app should be running on `http://localhost:4200/`.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
