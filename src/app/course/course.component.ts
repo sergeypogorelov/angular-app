@@ -76,6 +76,10 @@ export class CourseComponent implements OnInit {
         });
       }
       
+    } else {
+      this.form.controls.name.markAsDirty();
+      this.form.controls.duration.markAsDirty();
+      this.form.controls.createDate.markAsDirty();
     }
 
   }

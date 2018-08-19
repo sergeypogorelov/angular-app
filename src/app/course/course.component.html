@@ -1,16 +1,31 @@
 <div class="container page page-course">
   <form [formGroup]="form" (submit)="submitForm(form)">
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{ 'has-error' : formName.dirty && formName.invalid }">
       <label for="nameInput">Name:</label>
       <input id="nameInput" class="form-control" formControlName="name">
+      <span class="help-block" *ngIf="formName.dirty && formName.invalid && formName.errors.required">
+        Name is required.
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{ 'has-error' : formDuration.dirty && formDuration.invalid }">
       <label for="durationInput">Duration:</label>
       <input id="durationInput" class="form-control" formControlName="duration">
+      <span class="help-block" *ngIf="formDuration.dirty && formDuration.invalid && formDuration.errors.required">
+        Duration is required.
+      </span>
+      <span class="help-block" *ngIf="formDuration.dirty && formDuration.invalid && formDuration.errors.pattern">
+        Duration consists only of numbers.
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{ 'has-error' : formCreateDate.dirty && formCreateDate.invalid }">
       <label for="createDateInput">Create date:</label>
       <input id="createDateInput" class="form-control" formControlName="createDate">
+      <span class="help-block" *ngIf="formCreateDate.dirty && formCreateDate.invalid && formCreateDate.errors.required">
+        Create date is required.
+      </span>
+      <span class="help-block" *ngIf="formCreateDate.dirty && formCreateDate.invalid && formCreateDate.errors.pattern">
+        Create date should match 'YYYY-MM-DD' pattern.
+      </span>
     </div>
     <button type="submit" class="btn btn-default">Save</button>
   </form>
