@@ -54,6 +54,17 @@ export class MoviesService {
       .map(movies => movies.map(movie => new Movie(movie)));
   }
 
+  addMovie(movie: Movie): Observable<any> {
+    return this._http.post(API_URL, movie);
+  }
+
+  editMovie(id: number, movie: Movie): Observable<any> {
+    if (id < 1)
+      throw new Error('Specified ID is not valid.');
+
+    return this._http.put(`${API_URL}/${id}`, movie);
+  }
+
   removeById(id: number, title?: string): Observable<Movie[]> {
     if (id < 1)
       throw new Error('Specified ID is not valid.');
